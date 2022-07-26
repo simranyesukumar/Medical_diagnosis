@@ -8,22 +8,22 @@ d_treatment_map = {}
 
 def preprocess():
 	global diseases_list,diseases_symptoms,symptom_map,d_desc_map,d_treatment_map
-	diseases = open("diseases.txt")
+	diseases = open("diseases.txt",encoding="utf8")
 	diseases_t = diseases.read()
 	diseases_list = diseases_t.split("\n")
 	diseases.close()
 	for disease in diseases_list:
-		disease_s_file = open("Disease symptoms/" + disease + ".txt")
+		disease_s_file = open("Disease symptoms/" + disease + ".txt",encoding="utf8")
 		disease_s_data = disease_s_file.read()
 		s_list = disease_s_data.split("\n")
 		diseases_symptoms.append(s_list)
 		symptom_map[str(s_list)] = disease
 		disease_s_file.close()
-		disease_s_file = open("Disease descriptions/" + disease + ".txt")
+		disease_s_file = open("Disease descriptions/" + disease + ".txt",encoding="utf8")
 		disease_s_data = disease_s_file.read()
 		d_desc_map[disease] = disease_s_data
 		disease_s_file.close()
-		disease_s_file = open("Disease treatments/" + disease + ".txt")
+		disease_s_file = open("Disease treatments/" + disease + ".txt",encoding="utf8")
 		disease_s_data = disease_s_file.read()
 		d_treatment_map[disease] = disease_s_data
 		disease_s_file.close()
@@ -119,6 +119,48 @@ class Greetings(KnowledgeEngine):
 	def symptom_12(self):
 		self.declare(Fact(blurred_vision=input("blurred_vision: ")))
 
+	#Simran rules
+	@Rule(Fact(action='find_disease'),Fact(headache="yes"),Fact(back_pain="yes"),Fact(chest_pain="no"),Fact(cough="yes"),Fact(fainting="no"),Fact(sore_throat="no"),Fact(fatigue="yes"),Fact(restlessness="no"),Fact(low_body_temp="no"),Fact(fever="yes"),Fact(sunken_eyes="no"),Fact(nausea="yes"),Fact(blurred_vision="no"))
+	def disease_0(self):
+		self.declare(Fact(disease="Typhoid"))
+
+	@Rule(Fact(action='find_disease'),Fact(headache="yes"),Fact(back_pain="no"),Fact(chest_pain="no"),Fact(cough="yes"),Fact(fainting="yes"),Fact(sore_throat="no"),Fact(fatigue="yes"),Fact(restlessness="no"),Fact(low_body_temp="no"),Fact(fever="yes"),Fact(sunken_eyes="no"),Fact(nausea="yes"),Fact(blurred_vision="no"))
+	def disease_0(self):
+		self.declare(Fact(disease="vitamin deficiency"))
+
+	@Rule(Fact(action='find_disease'),Fact(headache="no"),Fact(back_pain="yes"),Fact(chest_pain="yes"),Fact(cough="yes"),Fact(fainting="no"),Fact(sore_throat="yes"),Fact(fatigue="yes"),Fact(restlessness="no"),Fact(low_body_temp="no"),Fact(fever="yes"),Fact(sunken_eyes="no"),Fact(nausea="yes"),Fact(blurred_vision="no"))
+	def disease_0(self):
+		self.declare(Fact(disease="Vitamin B deficiency"))
+
+	@Rule(Fact(action='find_disease'),Fact(headache="no"),Fact(back_pain="yes"),Fact(chest_pain="no"),Fact(cough="no"),Fact(fainting="yes"),Fact(sore_throat="no"),Fact(fatigue="yes"),Fact(restlessness="no"),Fact(low_body_temp="no"),Fact(fever="yes"),Fact(sunken_eyes="no"),Fact(nausea="yes"),Fact(blurred_vision="no"))
+	def disease_0(self):
+		self.declare(Fact(disease="Calcium deficiency"))
+
+	@Rule(Fact(action='find_disease'),Fact(headache="yes"),Fact(back_pain="no"),Fact(chest_pain="no"),Fact(cough="yes"),Fact(fainting="no"),Fact(sore_throat="yes"),Fact(fatigue="yes"),Fact(restlessness="no"),Fact(low_body_temp="no"),Fact(fever="yes"),Fact(sunken_eyes="no"),Fact(nausea="yes"),Fact(blurred_vision="no"))
+	def disease_0(self):
+		self.declare(Fact(disease="Lupus"))
+
+	@Rule(Fact(action='find_disease'),Fact(headache="yes"),Fact(back_pain="no"),Fact(chest_pain="yes"),Fact(cough="yes"),Fact(fainting="yes"),Fact(sore_throat="no"),Fact(fatigue="yes"),Fact(restlessness="no"),Fact(low_body_temp="no"),Fact(fever="yes"),Fact(sunken_eyes="no"),Fact(nausea="yes"),Fact(blurred_vision="no"))
+	def disease_0(self):
+		self.declare(Fact(disease="Tetanus"))
+
+	@Rule(Fact(action='find_disease'),Fact(headache="no"),Fact(back_pain="yes"),Fact(chest_pain="yes"),Fact(cough="yes"),Fact(fainting="no"),Fact(sore_throat="yes"),Fact(fatigue="yes"),Fact(restlessness="no"),Fact(low_body_temp="no"),Fact(fever="yes"),Fact(sunken_eyes="no"),Fact(nausea="yes"),Fact(blurred_vision="no"))
+	def disease_0(self):
+		self.declare(Fact(disease="Measles"))
+
+	@Rule(Fact(action='find_disease'),Fact(headache="no"),Fact(back_pain="no"),Fact(chest_pain="yes"),Fact(cough="yes"),Fact(fainting="yes"),Fact(sore_throat="yes"),Fact(fatigue="yes"),Fact(restlessness="no"),Fact(low_body_temp="no"),Fact(fever="yes"),Fact(sunken_eyes="no"),Fact(nausea="yes"),Fact(blurred_vision="no"))
+	def disease_0(self):
+		self.declare(Fact(disease="pertussis"))
+
+	@Rule(Fact(action='find_disease'),Fact(headache="yes"),Fact(back_pain="no"),Fact(chest_pain="no"),Fact(cough="no"),Fact(fainting="no"),Fact(sore_throat="yes"),Fact(fatigue="yes"),Fact(restlessness="no"),Fact(low_body_temp="no"),Fact(fever="yes"),Fact(sunken_eyes="no"),Fact(nausea="yes"),Fact(blurred_vision="no"))
+	def disease_0(self):
+		self.declare(Fact(disease="poliomyelitis"))
+
+	@Rule(Fact(action='find_disease'),Fact(headache="yes"),Fact(back_pain="yes"),Fact(chest_pain="yes"),Fact(cough="yes"),Fact(fainting="yes"),Fact(sore_throat="no"),Fact(fatigue="yes"),Fact(restlessness="no"),Fact(low_body_temp="no"),Fact(fever="yes"),Fact(sunken_eyes="no"),Fact(nausea="yes"),Fact(blurred_vision="no"))
+	def disease_0(self):
+		self.declare(Fact(disease="Hypoglycaemia"))
+	#end of simran's rules
+		
 	@Rule(Fact(action='find_disease'),Fact(headache="no"),Fact(back_pain="no"),Fact(chest_pain="no"),Fact(cough="no"),Fact(fainting="no"),Fact(sore_throat="no"),Fact(fatigue="yes"),Fact(restlessness="no"),Fact(low_body_temp="no"),Fact(fever="yes"),Fact(sunken_eyes="no"),Fact(nausea="yes"),Fact(blurred_vision="no"))
 	def disease_0(self):
 		self.declare(Fact(disease="Jaundice"))
